@@ -8,16 +8,22 @@ service "ManagementSystem" on ep {
     remote function registerStudent(Student value) returns boolean|error {
     }
     remote function submitAssignment(stream<Student, grpc:Error?> clientStream) returns string|error {
+        return error grpc:UnimplementedError("no support yet");
     }
     remote function addCourses(stream<Course, grpc:Error?> clientStream) returns string|error {
+        return error grpc:UnimplementedError("no support yet");
     }
     remote function assessments(stream<string, grpc:Error?> clientStream) returns CourseWeight|error {
+        return error grpc:UnimplementedError("no support yet");
     }
     remote function getResults(string value) returns stream<string, error?>|error {
+        return error grpc:UnimplementedError("no support yet");
     }
     remote function assignAssessors(stream<Assessors, grpc:Error?> clientStream) returns stream<string, error?>|error {
+        return error grpc:UnimplementedError("no support yet");
     }
     remote function assess(stream<Assignment, grpc:Error?> clientStream) returns stream<assignmentResults, error?>|error {
+        return error grpc:UnimplementedError("no support yet");
     }
 }
 
