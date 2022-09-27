@@ -1,0 +1,51 @@
+// Name : ManagementSystem.proto
+
+syntax = "proto3";
+
+package ManagementSystem;
+
+import "google/protobuf/wrappers.proto";
+
+service ManagementSystem {
+    rpc registerStudent (Student) returns (google.protobuf.BoolValue);
+    rpc submitAssignment (stream Student) returns (google.protobuf.StringValue); 
+    rpc getResults (google.protobuf.StringValue) returns (stream google.protobuf.StringValue);
+
+    rpc addCourses (stream Course) returns (google.protobuf.StringValue);
+    rpc assessments (stream google.protobuf.StringValue) returns (CourseWeight);
+    rpc assignAssessors (stream Assessors) returns (stream google.protobuf.StringValue);
+
+    rpc assess (stream Assignment) returns (stream assignmentResults);
+
+}
+
+message Student{
+    int32 studentNumber = 1;
+    string studentName = 2;
+    string modules = 3;
+}
+
+message Course{
+    int32 courseCode = 1;
+    string courseName = 2;
+}
+
+message CourseWeight{
+    string courseName = 1;
+    int32 assessmentsNo = 2;
+    int32 weight = 3;
+}
+
+message Assessors{
+    string assessorName = 1;
+    string courseName = 2;
+}
+
+message Assignment{
+    string studentNumber = 1;
+    string courseName = 2;
+}
+
+message assignmentResults{
+    int32 results = 1;
+}
