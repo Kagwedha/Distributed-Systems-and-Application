@@ -7,7 +7,7 @@ package ManagementSystem;
 import "google/protobuf/wrappers.proto";
 
 service ManagementSystem {
-    rpc registerStudent (Student) returns (google.protobuf.BoolValue);
+    rpc registerStudent (Student) returns (StudentProfile);
     rpc submitAssignment (stream Student) returns (google.protobuf.StringValue); 
     rpc getResults (google.protobuf.StringValue) returns (stream google.protobuf.StringValue);
 
@@ -20,6 +20,12 @@ service ManagementSystem {
 }
 
 message Student{
+    int32 studentNumber = 1;
+    string studentName = 2;
+    string modules = 3;
+}
+
+message StudentProfile{
     int32 studentNumber = 1;
     string studentName = 2;
     string modules = 3;
