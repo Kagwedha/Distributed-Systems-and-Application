@@ -7,25 +7,19 @@ package ManagementSystem;
 import "google/protobuf/wrappers.proto";
 
 service ManagementSystem {
-    rpc registerStudent (Student) returns (StudentProfile);
+    rpc registerStudent (Student) returns (google.protobuf.BoolValue);
     rpc submitAssignment (stream Student) returns (google.protobuf.StringValue); 
-    rpc getResults (google.protobuf.StringValue) returns (stream google.protobuf.StringValue);
+    rpc getResults (Student) returns (Results);
 
     rpc addCourses (stream Course) returns (google.protobuf.StringValue);
     rpc assessments (stream google.protobuf.StringValue) returns (CourseWeight);
     rpc assignAssessors (stream Assessors) returns (stream google.protobuf.StringValue);
 
-    rpc assess (stream Assignment) returns (stream assignmentResults);
+    rpc assess (Assignment) returns (stream assignmentResults);
 
 }
 
 message Student{
-    int32 studentNumber = 1;
-    string studentName = 2;
-    string modules = 3;
-}
-
-message StudentProfile{
     int32 studentNumber = 1;
     string studentName = 2;
     string modules = 3;
