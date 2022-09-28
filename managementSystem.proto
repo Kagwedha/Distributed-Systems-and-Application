@@ -49,3 +49,7 @@ message Assignment{
 message assignmentResults{
     int32 results = 1;
 }
+
+message Results{
+    int32 results = 1;
+}
