@@ -7,49 +7,97 @@ package ManagementSystem;
 import "google/protobuf/wrappers.proto";
 
 service ManagementSystem {
-    rpc registerStudent (Student) returns (google.protobuf.BoolValue);
-    rpc submitAssignment (stream Student) returns (google.protobuf.StringValue); 
-    rpc getResults (Student) returns (Results);
+    rpc register (stream Student) returns (google.protobuf.StringValue);
 
-    rpc addCourses (stream Course) returns (google.protobuf.StringValue);
-    rpc assessments (stream google.protobuf.StringValue) returns (CourseWeight);
-    rpc assignAssessors (stream Assessors) returns (stream google.protobuf.StringValue);
-
-    rpc assess (Assignment) returns (stream assignmentResults);
-
+    rpc createCourse (stream Course) returns (stream google.protobuf.StringValue);
+    rpc assignCourse (AssignedCourse) returns (google.protobuf.StringValue);
+    
+    rpc create_user (stream User) returns (google.protobuf.StringValue);
+    rpc view_user ( RequestUser ) returns (User); 
+   
+    rpc submit_assignments (stream Assignment) returns (google.protobuf.StringValue);
+    rpc request_assignments ( RequestAssignment) returns (stream Assessment); 
+    rpc submit_marks ( stream Assignment) returns ( google.protobuf.StringValue);
+    
 }
 
-message Student{
+
+message RequestUser{
+  string userName = 1
+  int32 userID= 2;
+}
+
+message RegisterCourse{
     int32 studentNumber = 1;
     string studentName = 2;
-    string modules = 3;
+    repeated string modules = 3;
 }
 
 message Course{
     int32 courseCode = 1;
     string courseName = 2;
+    Assessor assessor = 3;
 }
 
-message CourseWeight{
-    string courseName = 1;
-    int32 assessmentsNo = 2;
-    int32 weight = 3;
+message Student{
+    int32 studentNumber = 1;
+    string studentName = 2;
+    repeated Course registeredCourses = 3;
 }
 
-message Assessors{
-    string assessorName = 1;
-    string courseName = 2;
+message RequestStudent{
+    int32 studentNumber = 1;
+    int32 courseCode = 2;
 }
 
-message Assignment{
-    string studentNumber = 1;
-    string courseName = 2;
+message Students{
+    repeated Student students = 1;
 }
 
-message assignmentResults{
-    int32 results = 1;
+
+message User{
+    string usertype = 1;
+    string userName = 2;
+    int32 userID = 3;
+    repeated Course courses = 4;
 }
 
-message Results{
-    int32 results = 1;
+message Courses{
+  repeated Course courses = 1;
 }
+
+message RequestAssignment {
+  string message = 1;
+  int32 id = 2;
+
+}
+
+message Assignment {
+  string code = 1;
+  string name = 2;
+  int64 assignmentWeight = 3;
+  int64 assignmentMarks = 4;
+  BoolValue isMarked = 5;
+
+}
+
+
+
+message Assessor {
+  int64 assessorID= 1;
+  string assessorName = 2;
+  
+  
+  repeated Course courses = 4;
+  
+
+}
+
+message AssignedCourse {
+  int32 courseCode = 1;
+  string courseName = 2;
+  Assessor assessor = 3;
+}
+
+
+
